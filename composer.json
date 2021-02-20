@@ -1,5 +1,9 @@
 {
-    "require": {
-        "hashids/hashids": "^4.1"
-    }
+	"name": "xpaw/urlshortener",
+	"description": "A simple url shortener.",
+	"type": "project",
+	"license": "MIT",
+	"require": {
+		"hashids/hashids": "^4.1"
+	}
 }
