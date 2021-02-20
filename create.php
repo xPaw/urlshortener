@@ -6,7 +6,7 @@ header( 'Content-Type: text/plain' );
 if( ( $_SERVER[ 'REQUEST_METHOD' ] ?? '' ) !== 'POST' )
 {
 	http_response_code( 405 );
-	exit;
+	exit( 'Send a POST request with `secret` and `url` fields.' );
 }
 
 require __DIR__ . '/common.php';
