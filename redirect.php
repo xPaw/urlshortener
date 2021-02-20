@@ -55,8 +55,11 @@ if( empty( $Link ) )
 	exit;
 }
 
-http_response_code( 301 );
-header( 'Cache-Control: public, max-age=604800' );
+if( ( $_SERVER[ 'HTTP_X_PURPOSE' ] ?? '' ) === 'preview' )
+{
+	$Link = 'https://image.thum.io/get/width/1200/crop/600/noanimate/https://' . CONFIG_HOSTNAME . '/' . $Code;
+}
+
 header( 'Location: ' . $Link );
 
 echo '<html>';
