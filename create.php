@@ -14,7 +14,7 @@ require __DIR__ . '/common.php';
 $Url = (string)filter_input( INPUT_POST, 'url', FILTER_SANITIZE_URL );
 $Secret = (string)filter_input( INPUT_POST, 'secret', FILTER_SANITIZE_STRING );
 
-if( $Secret !== CONFIG_CREATE_SECRET )
+if( !hash_equals( CONFIG_CREATE_SECRET, $Secret ) )
 {
 	http_response_code( 400 );
 	exit( 'Invalid secret.' );
