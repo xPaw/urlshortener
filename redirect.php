@@ -60,9 +60,17 @@ if( ( $_SERVER[ 'HTTP_X_PURPOSE' ] ?? '' ) === 'preview' )
 	$Link = 'https://image.thum.io/get/width/1200/crop/600/noanimate/https://' . CONFIG_HOSTNAME . '/' . $Code;
 }
 
-header( 'Location: ' . $Link );
+// Very long links break nginx, rely on html redirect instead
+if( strlen( $Link ) < 8000 )
+{
+	header( 'Location: ' . $Link );
+}
+
+$Link = htmlspecialchars( $Link, ENT_HTML5 );
 
 echo '<html>';
-echo '<head><title>' . CONFIG_HOSTNAME . '</title></head>';
-echo '<body><a href="' . htmlspecialchars( $Link, ENT_HTML5 ) . '">Continue…</a></body>';
+echo '<head><title>' . CONFIG_HOSTNAME . '</title>';
+echo '<meta http-equiv="refresh" content="0;url=' . $Link . '"></head>';
+echo '<body><a href="' . $Link . '">Continue…</a>';
+echo '<script>location.href=document.querySelector("meta[http-equiv=refresh]").content.substr(6)</script></body>';
 echo '</html>';
